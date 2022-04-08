@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/menuHome"
+    android:title="@string/home"
+    android:icon="@drawable/bottom_navigation_home_selector"
+    />
+    <item android:id="@+id/menuDiscuss"
+        android:title="@string/discuss"
+        android:icon="@drawable/bottom_navigation_discuss_selector"
+        />
+    <item android:id="@+id/menusStudy"
+        android:title="@string/study"
+        android:icon="@drawable/bottom_navigation_study_selector"
+        />
+    <item android:id="@+id/menuMine"
+        android:title="@string/mine"
+        android:icon="@drawable/bottom_navigation_mine_selector"
+        />
+</menu>

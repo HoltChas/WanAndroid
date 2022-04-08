@@ -1,19 +1,84 @@
 dependencies {
+    /* readme *
+     *
+     * 为了统一管理插件/依赖库版本，避免版本冲突，统一将插件/依赖库信息配置在此文件中，
+     * 通过gradlew updateDependencies task
+     * 解析此文件生成对应内容到Dependencies.kt中进行统一引用
+     *
+     * <version> </version> 之间是一些版本的配置 ， 解析后会放到Dependencies.kt的object Versions中
+     *
+     * <dep> </dep> 之间是插件/依赖库引用路径 ， 解析后会放到Dependencies.kt的object Deps中
+     *
+     * 配置插件/依赖库引用说明：
+     * 0、版本配置格式：def <name> = <value>
+     * 1、配置插件/依赖库引用路径前备注格式： //<插件/依赖库名> : <备注>，这个部分会被解析确定插件/依赖库引用名称
+     * 2、配置插件/依赖库引用路径时以 implementation 作为开头
+     * 3、更新配置后执行 updateDependencies.gradle 的 updateDependencies task 同步更新到Dependencies.kt
+     *
+     *  Extra:
+     *  [Google's Maven Repository] (https://dl.google.com/dl/android/maven2/index.html)
+     */
 
-    def compileSDK = 31
-    def buildTools = "30.0.3"
-    def minSDK = 21
-    def targetSDK = 32
+    /*
+     * Version 部分
+     */
 
+    /*<version>*/
 
-    implementation  "com.android.tools.build:gradle:7.0.3"
+    def compileSDK = 31       // 编译 SDK 版本
+    def buildTools = "30.0.3" // Gradle 编译项目工具版本
+    def minSDK = 23           // 最低兼容 Android 版本
+    def targetSDK = 21        // 最高兼容 Android 版本
 
+    def composeVersion = "1.1.1"
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    /*</version>*/
+
+    /*
+     * 插件/依赖库路径部分
+     */
+
+    /*<dep>*/
+
+    // gradlePlugin
+    implementation "com.android.tools.build:gradle:7.0.3"
+
+    // mmkv:基于 mmap 的高性能通用 key-value 组件
+    implementation "com.tencent:mmkv-static:1.1.0"
+
+    //kotlinGradle
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+    //coreKtx
+    implementation "androidx.core:core-ktx:1.6.0"
+    //appcompat
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    //material
+    implementation "com.google.android.material:material:1.5.0"
+    //constraintlayout
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
+    //junit
+    implementation "junit:junit:4.13.2"
+    //testExt
+    implementation "androidx.test.ext:junit:1.1.3"
+    //testEspresso
+    implementation "androidx.test.espresso:espresso-core:3.4.0"
+
+    //viewbinding
+    implementation "com.github.kirich1409:viewbindingpropertydelegate:1.5.3"
+
+    //composeUi
+    implementation "androidx.compose.ui:ui:$composeVersion"
+    //composeMaterial
+    implementation "androidx.compose.material:material:$composeVersion"
+    //composeUiToolingPreview
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    //activityCompose
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    //composeUiTest
+    implementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
+    //composeUiTooling
+    implementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    /*</dep>*/
 }
