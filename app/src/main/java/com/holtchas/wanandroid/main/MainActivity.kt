@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -18,6 +19,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,9 +35,12 @@ import androidx.compose.ui.unit.sp
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.holtchas.wanandroid.R
 import com.holtchas.wanandroid.base.BaseActivity
+import com.holtchas.wanandroid.main.ui.Message
 import com.holtchas.wanandroid.main.ui.theme.Shapes
 import com.holtchas.wanandroid.main.ui.theme.Teal200
 import com.holtchas.wanandroid.main.ui.theme.WanAndroidTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +52,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    data class Message(val author: String, val body: String)
 
     @Composable
     fun Messagenba(msg: Message) {
@@ -66,13 +72,24 @@ class MainActivity : ComponentActivity() {
                         CircleShape
                     )
             )
-            Column {
-                Text(text = msg.author, color = Teal200)
+
+            var isExpanded by remember {
+                mutableStateOf(false)
+            }
+
+            Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
+                Text(text = msg.author, color = Teal200, style = MaterialTheme.typography.subtitle2)
                 Spacer(modifier = Modifier.width(16.dp))
-                Surface(shape = Shapes.medium, elevation = 1.dp) {
+                Surface(
+                    shape = Shapes.medium,
+                    elevation = 1.dp,
+                    modifier = Modifier.padding(5.dp)
+                ) {
                     Text(
                         text = msg.body,
                         modifier = Modifier.padding(all = 4.dp),
+                        maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+
                         style = MaterialTheme.typography.body2
                     )
                 }
